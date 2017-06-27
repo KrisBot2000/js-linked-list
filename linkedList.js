@@ -5,15 +5,28 @@
  */
 function linkedListGenerator(){
 
-  function getHead(){
+  //keeps track of which node
+  let currentNode = null;
 
+  //where to initialize linked list
+  var list = {
+    value: null,
+    next: null
+  }
+
+  function getHead(){
+    return list.value;
   }
 
   function getTail(){
-
+    currentNode = getHead();
+    while(currentNode.next !== null){
+      currentNode = currentNode.next;
+    }
+    return currentNode.value;
   }
 
-  function add(){
+  function add(value){
 
   }
 
@@ -38,3 +51,14 @@ function linkedListGenerator(){
     insert: insert
   };
 }
+
+// let ll = linkedListGenerator();console.log(ll.getHead);//null
+// ll.add("cat");
+// console.log(ll.getHead());//"cat"
+// console.log(ll.getTail());//"cat"
+// ll.add("dog");
+// console.log(ll.getTail());//"dog"
+// ll.insert("bird",1);
+// console.log(ll.get(1));//"bird"
+// ll.remove(2);
+// console.log(ll.getTail());//"bird"
