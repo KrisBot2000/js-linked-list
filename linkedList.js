@@ -24,15 +24,20 @@ function linkedListGenerator(){
 
 
   function getTail(){
-    return tail;
-
-
-
-  //   currentNode = head;
-  //   while(currentNode.next!==null){
-  //     currentNode = currentNode.next;
-  //   }
-  //   return currentNode.value;
+    //if no list
+    if(list===null){
+      return null;
+    //if there is a list
+    }else{
+      //start at head
+      currentNode = head;
+      //iterate down linked list to last node
+      while(currentNode.next!==null){
+        currentNode = currentNode.next;
+      }
+      //return last node
+      return currentNode;
+    }
   }
 
   function add(input){
@@ -67,7 +72,7 @@ function linkedListGenerator(){
 
   function get(index){
     //start at head
-    currentNode = head;
+    currentNode = list;
     //initialize counter at 0
     let counter = 0;
     //as long as there is a next and we haven't reached desired index
@@ -128,69 +133,65 @@ function linkedListGenerator(){
   }
 
   function insert(input, index){
-    let base = get((index-1));
+    let base = get(index-1);
     let spot = get(index);
     let cut = get(index+1);
-    console.log("base:");
-    console.log(base);
-    console.log("spot:");
-    console.log(spot);
-    console.log("cut:");
-    console.log(cut);
-
-    //new node template
     let newNode = {
       value: input,
       next: null
     }
-
-    //if there is no list
-    if(list===null){
-      //if want to add to first node
-      if(index===0){
-        //add input
-        add(input);
-        return;
-      //if attempting to add but not to first node
-      }else{
-        return false;
-      }
-    }
-    //if inserting at first node and there is a list
-    if(index===0){
-      console.log("LIST:");
-      console.log(list);
-      list = newNode;
-      console.log(list);
-      console.log(newNode);
-      console.log(spot);
-      newNode.next = spot;
-      //console.log(list);
-
-
-    }
-
-
-
-    //if nothing at index where want to insert
-    if(spot===false){
-      //nothing before where want to insert
-      if(base===false){
-        return false;
-      //something before where want to insert
-      }else{
-        //add new node to end of list
-        base.next = newNode;
-        tail = newNode;
-        return;
-      }
-    //if something at index where want to insert
+    //if index is not valid
+    if(index<0){
+      return false;
+    //if index is valid
     }else{
-     //insert new node at desired index
-     base.next = newNode;
-     //attach following node to just-created node
-     newNode.next = spot;
-     return;
+      //if there is no list
+      if(list===null){
+        //and want to add to first node
+        if(index===0){
+          //add input
+          add(input);
+          head = list;
+          return;
+        //if attempting to add but not to first node
+        }else{
+          //can not!
+          return false;
+        }
+      }
+      //if inserting at first node and there is a list
+      if(index===0){
+        newNode.next = list;
+        list = newNode;
+        head = list;
+        return;
+      }
+      //if nothing at index where want to insert
+      if(spot===false){
+        //nothing before where want to insert
+        if(base===false){
+          return false;
+        //something before where want to insert
+        }else{
+          //add new node to end of list
+          base.next = newNode;
+          tail = newNode;
+          return;
+        }
+      //if something at index where want to insert
+      }else{
+        //if nothing to attach it to
+        if(base===false){
+          return false;
+        //if something to attach it to
+        }else{
+          //insert new node at desired index
+          base.next = newNode;
+          //attach following node to just-created node
+          newNode.next = spot;
+          return;
+        }
+      }
     }
   }
 
@@ -203,14 +204,3 @@ function linkedListGenerator(){
     insert: insert
   };
 }
-
-// let ll = linkedListGenerator();console.log(ll.getHead);//null
-// ll.add("cat");
-// console.log(ll.getHead());//"cat"
-// console.log(ll.getTail());//"cat"
-// ll.add("dog");
-// console.log(ll.getTail());//"dog"
-// ll.insert("bird",1);
-// console.log(ll.get(1));//"bird"
-// ll.remove(2);
-// console.log(ll.getTail());//"bird"
